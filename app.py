@@ -35,3 +35,6 @@ def ranking():
     obj = {}
     obj['ranking'] = conta.find().sort("xp", -1)[:10]
     return obj
+
+if __name__ == "__main__":
+   app.run()
