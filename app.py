@@ -27,7 +27,7 @@ def staff():
         obj['info']['channel_count'] = (result['channel_count'])
         obj['info']['member_count'] = (result['member_count'])
         obj['info']['staff_count'] = (len(obj['staff']))
-        return obj
+        return flask.jsonify(obj)
     except:
         return '<h1>Deu erro ae pae</h1>'
 
