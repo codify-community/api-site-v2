@@ -12,6 +12,11 @@ conta = db["conta"]
 app = flask.Flask(__name__)
 CORS(app)
 
+app.config.update(
+    JSON_SORT_KEYS=False,
+    JSON_AS_ASCII=False
+)
+
 @app.route('/api/home', methods=['GET'])
 def staff():
     try:
@@ -27,7 +32,14 @@ def staff():
         obj['info']['channel_count'] = (result['channel_count'])
         obj['info']['member_count'] = (result['member_count'])
         obj['info']['staff_count'] = (len(obj['staff']))
-        return flask.jsonify(obj)
+        return flask.make_response(flask.jsonify(
+        credits={
+            "documentation": "https://github.com/Alexsander4742/AnimeAPI",
+            "creator": "AimCaffe/Alexsander4742",
+            "version": VERSION
+        },
+        data=data
+        ), status)
     except:
         return '<h1>Deu erro ae pae</h1>'
 
