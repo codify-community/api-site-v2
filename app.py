@@ -1,7 +1,10 @@
+import os
+
 import flask
 from flask_cors import CORS
 from utils.dbconnect import mongoConnect
 
+SERVER_PORT = int(os.environ["PORT"])
 
 cluster = mongoConnect()
 db = cluster["discord"]
@@ -37,4 +40,4 @@ def ranking():
     return obj
 
 if __name__ == "__main__":
-   app.run()
+   app.run(port=SERVER_PORT)
