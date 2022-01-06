@@ -32,5 +32,3 @@ def ranking():
     obj = {}
     obj['ranking'] = conta.find().sort("xp", -1)[:10]
     return obj
-#run on port 5000
-app.run(port=5000)
