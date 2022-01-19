@@ -1,15 +1,9 @@
-import os
-
-import flask
+from flask import Flask
+from App.routes import app as routes
+#import cors
 from flask_cors import CORS
-from utils.dbconnect import mongoConnect
 
-cluster = mongoConnect()
-db = cluster["discord"]
-site = db["site"]
-conta = db["conta"]
-
-app = flask.Flask(__name__)
+app: Flask = Flask(__name__)
 CORS(app)
 
 app.config.update(
@@ -17,37 +11,8 @@ app.config.update(
     JSON_AS_ASCII=False
 )
 
-@app.route('/api/home', methods=['GET'])
-def staff():
-    try:
-        obj = {}
-        result = site.find_one({"_id": 1})
-        obj['staff'] = []
-        obj['staff'].append(result['dono'])
-        for i in ['admins', 'mods']:
-            for e in result[i]:
-                obj['staff'].append(e)
-        obj['booster'] = result['boosters']
-        obj['info'] = {}
-        obj['info']['channel_count'] = (result['channel_count'])
-        obj['info']['member_count'] = (result['member_count'])
-        obj['info']['staff_count'] = (len(obj['staff']))
-        return flask.make_response(flask.jsonify(
-        credits={
-            "documentation": "https://github.com/Alexsander4742/AnimeAPI",
-            "creator": "AimCaffe/Alexsander4742",
-            "version": VERSION
-        },
-        data=data
-        ), status)
-    except:
-        return '<h1>Deu erro ae pae</h1>'
-
-@app.route('/api/ranking')
-def ranking():
-    obj = {}
-    obj['ranking'] = conta.find().sort("xp", -1)[:10]
-    return obj
+app.logger.disabled = True
+app.register_blueprint(routes)
 
 if __name__ == "__main__":
-   app.run()
+    app.run(debug=True)
