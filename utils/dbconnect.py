@@ -1,9 +1,7 @@
-from dotenv import load_dotenv, find_dotenv  
-from os import getenv
+import os
+from boto.s3.connection import S3Connection
 from pymongo import MongoClient
 
 def mongoConnect():
-    load_dotenv(find_dotenv())
-    uri = getenv('MONGO_URI')
-    print(uri)
+    uri = S3Connection(os.environ['MONGO_URI'])
     return MongoClient(uri)
