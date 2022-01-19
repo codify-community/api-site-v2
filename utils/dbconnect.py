@@ -5,5 +5,5 @@ from pymongo import MongoClient
 def mongoConnect():
     load_dotenv(find_dotenv())
     uri = getenv('MONGO_URI')
-    
+    print(uri)
     return MongoClient(uri)
