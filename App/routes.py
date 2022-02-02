@@ -16,10 +16,7 @@ def staff():
     try:
         obj = {}
         result = site.find_one({"_id": 1})
-        obj['staff'] = []
-        for i in ['admins', 'mods', 'dono']:
-            for e in result[i]:
-                obj['staff'].append(e)
+        obj['staff'] = result['staffs']
         obj['booster'] = result['boosters']
         obj['info'] = {}
         obj['info']['channel_count'] = (result['channel_count'])
