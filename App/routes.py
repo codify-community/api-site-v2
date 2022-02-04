@@ -15,7 +15,7 @@ def staff():
     print('request recived')
     try:
         obj = {}
-        result = site.find_one({"_id": 1})
+        result = site.find_one({"_id": 0})
         obj['staff'] = result['staffs']
         obj['booster'] = result['boosters']
         obj['info'] = {}
